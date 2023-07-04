@@ -1,112 +1,161 @@
-import './App.css';
-import * as ReactDOM from 'react-dom';
-import * as React from 'react';
-import SabpaisaSdk from './SabpaisaSdk.tsx';
+import React, { useState, useEffect } from 'react'
+import SabpaisaPaymentGateway from './SabpaisaPaymentGateway';
 
+const App = (props) => {
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-      clientCode: 'TM001',
-      transUserName: 'spuser_2013',
-      txtnId: Math.random().toString(),
-      transUserPassword: 'RIADA_SP336',
-      authkey: 'kaY9AIhuJZNvKGp2',
-      authiv: 'YN2v8qQcU3rGfA1y',
-      callbackUrl: 'http://localhost:4200/response',
-      payerName: '',
-      payerEmail: '',
-      payerMobile: '',
-      payerAddress: '',
-      amount: '',
-      udf1: "", udf2: "", udf3: "", udf4: "", udf5: "", udf6: "", udf7: "", udf8: "", udf9: "", udf10: "", udf11: "", udf12: "", udf13: "", udf14: "", udf15: "", udf16: "", udf17: "", udf18: "", udf19: "", udf20: "", channelId: "", programId: "", mcc: "",
-    };
+  const [isOpen, setIsOpen] = useState(false);
+  const [payerName, setPayerName] = useState("Anand Kumar Shaw");
+  const [payerEmail, setPayerEmail] = useState("anand.kumar@sabpaisa.in");
+  const [payerMobile, setPayerMobile] = useState("6291312929");
+  const [amount, setAmount] = useState(8625);
+  const [clientCode, setClientCode] = useState("TM001");
+  const [payerAddress, setPayerAddress] = useState("Bangalore");
+  const [transUserName, setTransUserName] = useState("spuser_2013");
+  const [clientTxnId, setclientTxnId] = useState("3828972293337345");
+  const [transUserPassword, setTransUserPassword] = useState("RIADA_SP336");
+  const [authkey, setAuthkey] = useState("kaY9AIhuJZNvKGp2");
+  const [authiv, setAuthiv] = useState("YN2v8qQcU3rGfA1y");
+  const [callbackUrl, setCallbackUrl] = useState("http://localhost:3000/result");
+  const [data, setData] = useState(null)
+  const [udf1, setudf1] = useState(null);
+  const [udf2, setudf2] = useState(null);
+  const [udf3, setudf3] = useState(null);
+  const [udf4, setudf4] = useState(null);
+  const [udf5, setudf5] = useState(null);
+  const [udf6, setudf6] = useState(null);
+  const [udf7, setudf7] = useState(null);
+  const [udf8, setudf8] = useState(null);
+  const [udf9, setudf9] = useState(null);
+  const [udf10, setudf10] = useState(null);
+  const [udf11, setudf11] = useState(null);
+  const [udf12, setudf12] = useState(null); // client id
+  const [udf13, setudf13] = useState(null); // plan id
+  const [udf14, setudf14] = useState(null); // plan name
+  const [udf15, setudf15] = useState(null); // application id (product id)
+  const [udf16, setudf16] = useState(null); // client subscribe plan detail id(refer to DB)
+  const [udf17, setudf17] = useState(null); // payment from the COB portal
+  const [udf18, setudf18] = useState(null);
+  const [udf19, setudf19] = useState(null);
+  const [udf20, setudf20] = useState(null);
+  const [channelId, setchannelId] = useState(null);
+  const [programId, setprogramId] = useState(null);
+  const [mcc, setmcc] = useState(null);
+  const [amountType, setamountType] = useState(null);
 
-    this.handlePayerName = this.handlePayerName.bind(this);
-    this.handlePayerEmail = this.handlePayerEmail.bind(this);
-    this.handlePayerPhone = this.handlePayerPhone.bind(this);
-    this.handlePayerAmount = this.handlePayerAmount.bind(this);
-    this.handlePayerAddress = this.handlePayerAddress.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handlePayerName(event) {
-    this.setState({ payerName: event.target.value });
-  }
-
-  handlePayerEmail(event) {
-    this.setState({ payerEmail: event.target.value });
-  }
-  handlePayerPhone(event) {
-    this.setState({ payerMobile: event.target.value });
-  }
-  handlePayerAmount(event) {
-    this.setState({ amount: event.target.value });
-  }
-  handlePayerAddress(event) {
-    this.setState({ payerAddress: event.target.value });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const rootElement = document.getElementById("renderSabPaisa");
-    ReactDOM.render(
-      <SabpaisaSdk txtnId={this.state.txtnId} sabPaisaUrl={this.state.sabPaisaUrl} clientCode={this.state.clientCode} transUserPassword={this.state.transUserPassword} transUserName={this.state.transUserName} callbackUrl={this.state.callbackUrl} isOpen={this.state.isOpen} authkey={this.state.authkey} authiv={this.state.authiv} payerName={this.state.payerName} payerEmail={this.state.payerEmail} payerMobile={this.state.payerMobile} payerAddress={this.state.payerAddress} amount={this.state.amount} udf1={this.state.udf1} udf2={this.state.udf2} udf3={this.state.udf3} udf4={this.state.udf4} udf5={this.state.udf5} udf6={this.state.udf6} udf7={this.state.udf6} udf8={this.state.udf8} udf9={this.state.udf9} udf10={this.state.udf10} udf11={this.state.udf11} udf12={this.state.udf12} udf13={this.state.udf13} udf14={this.state.udf14} udf15={this.state.udf15} udf16={this.state.udf16} udf17={this.state.udf17} udf18={this.state.udf18} udf19={this.state.udf19} udf20={this.state.udf20} channelId={this.state.channelId} programId={this.state.programId} mcc={this.state.mcc} />, rootElement
-    );
-    const btn = document.getElementById('submitSabPaisaBtn');
+  const handleSubmit = (e) => {
+    setIsOpen(true);
+    e.preventDefault()
+    const btn = document.getElementById('renderSabPaisa');
     btn.click();
   }
 
 
-  render() {
-    return (
-      <form class="main-frm" onSubmit={this.handleSubmit}>
-        <div class="wrapper">
-          <div><h2>Sabpaisa Payment</h2></div>
+  return (
+    <div className="container-fluid">
+      <form className='xyz' onSubmit={handleSubmit}>
+        <div className="wrapper">
+          <div className="row">
+            <div className="text-center mt-3">
+              <h2 className='text-success'>SabPaisa Payment</h2>
+            </div>
+          </div>
           <div id='renderSabPaisa'></div>
-          <div class="frm">
-            <label for=""> Name : </label> <br />
-            <input type="text" value={this.state.payerName} onChange={this.handlePayerName} />
-          </div>
-          <div class="frm">
-            <label for=""> Email : </label> <br />
-            <input type="text" value={this.state.payerEmail} onChange={this.handlePayerEmail} />
-          </div>
-          <div class="frm">
-            <label for=""> Phone : </label> <br />
-            <input type="text" value={this.state.payerMobile} onChange={this.handlePayerPhone} />
-          </div>
-          <div class="frm">
-            <label for=""> Amount : </label> <br />
-            <input type="text" value={this.state.amount} onChange={this.handlePayerAmount} />
-          </div>
-          <div class="frm">
-            <label for=""> Address : </label> <br />
-            <input type="text" value={this.state.payerAddress} onChange={this.handlePayerAddress} />
-          </div>
-          <div class="frm">
-            <button type="submit" value="Submit" class="pay-btn">Pay</button>
-          </div>
+          <div className="row mt-3">
+            <div className="form-group"></div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Name : </label> <br />
+              <input type="text" placeholder='Name :' value={payerName} onChange={(e) => setPayerName(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Email : </label> <br />
+              <input type="text" placeholder='Email :' value={payerEmail} onChange={(e) => setPayerEmail(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Phone : </label> <br />
+              <input type="text" placeholder='Phone :' value={payerMobile} onChange={(e) => setPayerMobile(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Amount : </label> <br />
+              <input type="text" placeholder='Amount :' value={amount} onChange={(e) => setAmount(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Client Code : </label> <br />
+              <input type="text" placeholder='Client Code :' value={clientCode} onChange={(e) => setClientCode(e.target.value)} />
+            </div>
 
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Trnx User Name : </label> <br />
+              <input type="text" placeholder='Trnx User Name :' value={transUserName} onChange={(e) => setTransUserName(e.target.value)} />
+            </div>
+
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Trnx User Password : </label> <br />
+              <input type="text" placeholder='Trnx User Password :' value={transUserPassword} onChange={(e) => setTransUserPassword(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Auth Key : </label> <br />
+              <input type="text" placeholder='Auth Key :' value={authkey} onChange={(e) => setAuthkey(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Auth IV : </label> <br />
+              <input type="text" placeholder='Auth IV :' value={authiv} onChange={(e) => setAuthiv(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Client Trnx Id : </label> <br />
+              <input type="text" placeholder='Client Trnx Id :' value={clientTxnId} onChange={(e) => setclientTxnId(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Address : </label> <br />
+              <input type="text" placeholder='Address :' value={payerAddress} onChange={(e) => setPayerAddress(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Callback Url : </label> <br />
+              <input type="text" placeholder='Callback Url :' value={callbackUrl} onChange={(e) => setCallbackUrl(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Data : </label> <br />
+              <input type="text" placeholder='Data :' value={data} onChange={(e) => setData(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Udf1 : </label> <br />
+              <input type="text" placeholder='Udf 1 :' value={udf1} onChange={(e) => setudf1(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Udf 2 : </label> <br />
+              <input type="text" placeholder='Udf 2 :' value={udf2} onChange={(e) => setudf2(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Udf 3 : </label> <br />
+              <input type="text" placeholder='Udf 3 :' value={udf3} onChange={(e) => setudf3(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Channel ID : </label> <br />
+              <input type="text" placeholder='Channel Id :' value={channelId} onChange={(e) => setchannelId(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Program ID : </label> <br />
+              <input type="text" placeholder='Program Id :' value={programId} onChange={(e) => setprogramId(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > MCC : </label> <br />
+              <input type="text" placeholder='MCC :' value={mcc} onChange={(e) => setmcc(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="" > Account Type : </label> <br />
+              <input type="text" placeholder='Account Type :' value={amountType} onChange={(e) => setamountType(e.target.value)} />
+            </div>
+          </div>
+          <div className="row mt-5 text-center">
+            <div>
+              <button type="submit" value="Submit" className="xyz btn btn-success mb-5">Proceed To Pay</button>
+            </div>
+          </div>
         </div>
+        <SabpaisaPaymentGateway payerName={payerName} payerEmail={payerEmail} payerMobile={payerMobile} isOpen={isOpen} />
       </form>
-    );
-  }
+
+    </div>
+  )
 }
-export default App;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default App
