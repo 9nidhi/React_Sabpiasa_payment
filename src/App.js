@@ -4,18 +4,18 @@ import SabpaisaPaymentGateway from './SabpaisaPaymentGateway';
 const App = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [payerName, setPayerName] = useState("payername");
-  const [payerEmail, setPayerEmail] = useState("test@email.com");
-  const [payerMobile, setPayerMobile] = useState("1234567890");
+  const [payerName, setPayerName] = useState("Anand Kumar Shaw");
+  const [payerEmail, setPayerEmail] = useState("anand.kumar@sabpaisa.in");
+  const [payerMobile, setPayerMobile] = useState("6291312929");
   const [amount, setAmount] = useState(8625);
-  const [clientCode, setClientCode] = useState("XXXXXXXX");  // Please use the credentials shared by your Account Manager  If not, please contact your Account Manager
+  const [clientCode, setClientCode] = useState("TM001");
   const [payerAddress, setPayerAddress] = useState("Bangalore");
-  const [transUserName, setTransUserName] = useState("XXXXXXXX"); // Please use the credentials shared by your Account Manager  If not, please contact your Account Manage
+  const [transUserName, setTransUserName] = useState("spuser_2013");
   const [clientTxnId, setclientTxnId] = useState("3828972293337345");
-  const [transUserPassword, setTransUserPassword] = useState("XXXXXXXX");  // Please use the credentials shared by your Account Manager  If not, please contact your Account Manage
-  const [authkey, setAuthkey] = useState("XXXXXXXX");  // Please use the credentials shared by your Account Manager  If not, please contact your Account Manage
-  const [authiv, setAuthiv] = useState("XXXXXXXX");    // Please use the credentials shared by your Account Manager  If not, please contact your Account Manage
-  const [callbackUrl, setCallbackUrl] = useState("http://localhost:3000/result");
+  const [transUserPassword, setTransUserPassword] = useState("RIADA_SP336");
+  const [authkey, setAuthkey] = useState("kaY9AIhuJZNvKGp2");
+  const [authiv, setAuthiv] = useState("YN2v8qQcU3rGfA1y");
+  const [callbackUrl, setCallbackUrl] = useState("http://localhost:3000/response");
   const [data, setData] = useState(null)
   const [udf1, setudf1] = useState(null);
   const [udf2, setudf2] = useState(null);
@@ -41,6 +41,8 @@ const App = (props) => {
   const [programId, setprogramId] = useState(null);
   const [mcc, setmcc] = useState(null);
   const [amountType, setamountType] = useState(null);
+  const [selectedOption, setSelectedOption] = useState('');
+
 
   const handleSubmit = (e) => {
     setIsOpen(true);
@@ -54,11 +56,24 @@ const App = (props) => {
     <div className="container-fluid">
       <form className='xyz' onSubmit={handleSubmit}>
         <div className="wrapper">
-          <div className="row">
-            <div className="text-center mt-3">
+
+          <div className="row mt-3">
+            <div className="col-md-3 d-flex justify-content-start">
               <h2 className='text-success'>SabPaisa Payment</h2>
             </div>
+
+            <div className="col-md-9 d-flex justify-content-end">
+              <div>
+                <select class="form-select" aria-label="Default select example" >
+                  <option selected>Open this select menu</option>
+                  <option value="option1">Version One</option>
+                  <option value="option2">Version Two</option>
+                </select>
+              </div>
+
+            </div>
           </div>
+
           <div id='renderSabPaisa'></div>
           <div className="row mt-3">
             <div className="form-group"></div>

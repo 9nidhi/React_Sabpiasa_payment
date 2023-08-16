@@ -4,8 +4,11 @@ import { useLocation } from "react-router-dom";
 
 const Result = (props) => {
     const location = useLocation();
+    console.log("KKKKKKKKKKK", location);
 
     const resutfromResponse = location?.state?.data;
+
+    
 
     const pairs = resutfromResponse.split("&")
 
@@ -25,7 +28,7 @@ const Result = (props) => {
                     <tr className='bg-success text-white'>
                         <th scope="col">Sl No.</th>
                         <th scope="col">Key</th>
-                        <th scope="col">Response Values</th>
+                        <th scope="col">Values</th>
                     </tr>
                 </thead>
                 {keyValuePairs.map(pair => (

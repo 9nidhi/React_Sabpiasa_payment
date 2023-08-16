@@ -8,11 +8,11 @@ import { useHistory } from 'react-router-dom'
 function SabpaisaPaymentGateway(props) {
   const clientDetails = props?.clientData
   const [isOpen, setIsOpen] = useState(false);
-  const [clientCode, setClientCode] = useState("XXXXXXXX");    // Please use the credentials shared by your Account Manager  If not, please contact your Account Manager
-  const [transUserName, setTransUserName] = useState("XXXXXXXX");           // Please use the credentials shared by your Account Manager  If not, please contact your Account Manager
-  const [transUserPassword, setTransUserPassword] = useState("XXXXXXXX");     // Please use the credentials shared by your Account Manager  If not, please contact your Account Manager
-  const [authkey, setAuthkey] = useState("XXXXXXXX");                   // Please use the credentials shared by your Account Manager  If not, please contact your Account Manager
-  const [authiv, setAuthiv] = useState("XXXXXXXX");                     // Please use the credentials shared by your Account Manager  If not, please contact your Account Manager
+  const [clientCode, setClientCode] = useState("TM001");
+  const [transUserName, setTransUserName] = useState("spuser_2013");
+  const [transUserPassword, setTransUserPassword] = useState("RIADA_SP336");
+  const [authkey, setAuthkey] = useState("kaY9AIhuJZNvKGp2");
+  const [authiv, setAuthiv] = useState("YN2v8qQcU3rGfA1y");
   const [callbackUrl, setCallbackUrl] = useState("http://localhost:3000/response");
   const [payerName, setpayerName] = useState(props.payerName);
   const [payerEmail, setpayerEmail] = useState(props.payerEmail);
