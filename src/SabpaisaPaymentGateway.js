@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { PaymentInitModal } from "pg-test-project";
 import { v4 as uuidv4 } from 'uuid';
 import uniqid from 'uniqid';
-import { useHistory } from 'react-router-dom'
 
 
 function SabpaisaPaymentGateway(props) {
@@ -52,20 +51,7 @@ function SabpaisaPaymentGateway(props) {
 
   }, [props])
 
-  const history = useHistory();
-  const responseValues = history?.location?.search;
-
-  useEffect(() => {
-    if (responseValues) {
-      history.push({
-        pathname: "/result",
-        state: {
-          data: responseValues
-        }
-      })
-    }
-
-  }, [responseValues])
+ 
 
 
 
