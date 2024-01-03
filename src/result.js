@@ -4,10 +4,8 @@ import { useLocation } from "react-router-dom";
 
 const Result = (props) => {
     const location = useLocation();
-    console.log("KKKKKKKKKKK", location);
-
     const resutfromResponse = location?.state?.data;
-
+    console.log("Payment Gateway Response ::", resutfromResponse);
     
 
     const pairs = resutfromResponse.split("&")
@@ -20,10 +18,7 @@ const Result = (props) => {
 
     return (
         <>
-            {/* Response is {resutfromResponse}
-            <hr /> */}
-
-            <table class="table table-hover">
+            <table className="table table-hover">
                 <thead>
                     <tr className='bg-success text-white'>
                         <th scope="col">Sl No.</th>

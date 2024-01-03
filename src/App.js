@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import SabpaisaPaymentGateway from './SabpaisaPaymentGateway';
+import { Link } from 'react-router-dom';
 
 const App = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
+  const [clientCode, setClientCode] = useState("LPSD1");
+  const [transUserName, setTransUserName] = useState("Abh789@sp");
+  const [transUserPassword, setTransUserPassword] = useState("P8c3WQ7ei");
+  const [authkey, setAuthkey] = useState("x0xzPnXsgTq0QqXx");
+  const [authiv, setAuthiv] = useState("oLA38cwT6IYNGqb3");
   const [payerName, setPayerName] = useState("Anand Kumar Shaw");
   const [payerEmail, setPayerEmail] = useState("anand.kumar@sabpaisa.in");
   const [payerMobile, setPayerMobile] = useState("6291312929");
+  const [clientTxnId, setclientTxnId] = useState("3828972293337345");
   const [amount, setAmount] = useState(8625);
-  const [clientCode, setClientCode] = useState("");
-  const [payerAddress, setPayerAddress] = useState("");
-  const [transUserName, setTransUserName] = useState("");
-  const [clientTxnId, setclientTxnId] = useState("");
-  const [transUserPassword, setTransUserPassword] = useState("");
-  const [authkey, setAuthkey] = useState("");
-  const [authiv, setAuthiv] = useState("");
-  const [callbackUrl, setCallbackUrl] = useState("");
+  const [payerAddress, setPayerAddress] = useState("Kolkata");
+  const [callbackUrl, setCallbackUrl] = useState("http://localhost:3000/response");
   const [data, setData] = useState(null)
   const [udf1, setudf1] = useState(null);
   const [udf2, setudf2] = useState(null);
@@ -53,46 +54,20 @@ const App = (props) => {
 
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid bg-secondary text-white py-4">
       <form className='xyz' onSubmit={handleSubmit}>
         <div className="wrapper">
 
-          <div className="row mt-3">
-            <div className="col-md-3 d-flex justify-content-start">
-              <h2 className='text-success'>SabPaisa Payment</h2>
-            </div>
-
-            <div className="col-md-9 d-flex justify-content-end">
-              <div>
-                <select class="form-select" aria-label="Default select example" >
-                  <option selected>Open this select menu</option>
-                  <option value="option1">Version One</option>
-                  <option value="option2">Version Two</option>
-                </select>
-              </div>
-
+          <div className="row py-2">
+            <div className="col-md-12 d-flex justify-content-center">
+              <h2 className='text-white bg-success px-2 py-1 rounded'>SabPaisa Payment Gateway</h2>
             </div>
           </div>
 
           <div id='renderSabPaisa'></div>
           <div className="row mt-3">
             <div className="form-group"></div>
-            <div className="col-md-3 mb-3">
-              <label htmlFor=""> Name : </label> <br />
-              <input type="text" placeholder='Name :' value={payerName} onChange={(e) => setPayerName(e.target.value)} />
-            </div>
-            <div className="col-md-3 mb-3">
-              <label htmlFor=""> Email : </label> <br />
-              <input type="text" placeholder='Email :' value={payerEmail} onChange={(e) => setPayerEmail(e.target.value)} />
-            </div>
-            <div className="col-md-3 mb-3">
-              <label htmlFor=""> Phone : </label> <br />
-              <input type="text" placeholder='Phone :' value={payerMobile} onChange={(e) => setPayerMobile(e.target.value)} />
-            </div>
-            <div className="col-md-3 mb-3">
-              <label htmlFor=""> Amount : </label> <br />
-              <input type="text" placeholder='Amount :' value={amount} onChange={(e) => setAmount(e.target.value)} />
-            </div>
+
             <div className="col-md-3 mb-3">
               <label htmlFor=""> Client Code : </label> <br />
               <input type="text" placeholder='Client Code :' value={clientCode} onChange={(e) => setClientCode(e.target.value)} />
@@ -114,6 +89,22 @@ const App = (props) => {
             <div className="col-md-3 mb-3">
               <label htmlFor="" > Auth IV : </label> <br />
               <input type="text" placeholder='Auth IV :' value={authiv} onChange={(e) => setAuthiv(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Name : </label> <br />
+              <input type="text" placeholder='Name :' value={payerName} onChange={(e) => setPayerName(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Email : </label> <br />
+              <input type="text" placeholder='Email :' value={payerEmail} onChange={(e) => setPayerEmail(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Phone : </label> <br />
+              <input type="text" placeholder='Phone :' value={payerMobile} onChange={(e) => setPayerMobile(e.target.value)} />
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor=""> Amount : </label> <br />
+              <input type="text" placeholder='Amount :' value={amount} onChange={(e) => setAmount(e.target.value)} />
             </div>
             <div className="col-md-3 mb-3">
               <label htmlFor=""> Client Trnx Id : </label> <br />
@@ -162,11 +153,11 @@ const App = (props) => {
           </div>
           <div className="row mt-5 text-center">
             <div>
-              <button type="submit" value="Submit" className="xyz btn btn-success mb-5">Proceed To Pay</button>
+              <button type="submit" value="Submit" className="xyz btn btn-success mb-5">Proceed for payment</button>
             </div>
           </div>
         </div>
-        <SabpaisaPaymentGateway payerName={payerName} payerEmail={payerEmail} payerMobile={payerMobile} isOpen={isOpen} />
+        <SabpaisaPaymentGateway clientCode={clientCode} transUserName={transUserName} transUserPassword={transUserPassword} authkey={authkey} authiv={authiv} payerName={payerName} payerEmail={payerEmail} payerMobile={payerMobile} clientTxnId={clientTxnId} amount={amount} payerAddress={payerAddress} callbackUrl={callbackUrl} isOpen={isOpen} />
       </form>
 
     </div>

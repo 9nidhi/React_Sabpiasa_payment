@@ -2,23 +2,24 @@ import React, { useState, useEffect } from 'react'
 import { PaymentInitModal } from "pg-test-project";
 import { v4 as uuidv4 } from 'uuid';
 import uniqid from 'uniqid';
+import { useHistory } from 'react-router-dom'
 
 
 function SabpaisaPaymentGateway(props) {
-  const clientDetails = props?.clientData
+
   const [isOpen, setIsOpen] = useState(false);
-  const [clientCode, setClientCode] = useState("TM001");
-  const [transUserName, setTransUserName] = useState("spuser_2013");
-  const [transUserPassword, setTransUserPassword] = useState("RIADA_SP336");
-  const [authkey, setAuthkey] = useState("kaY9AIhuJZNvKGp2");
-  const [authiv, setAuthiv] = useState("YN2v8qQcU3rGfA1y");
-  const [callbackUrl, setCallbackUrl] = useState("http://localhost:3000/response");
+  const [clientCode, setClientCode] = useState(props.clientCode);
+  const [transUserName, setTransUserName] = useState(props.transUserName);
+  const [transUserPassword, setTransUserPassword] = useState(props.transUserPassword);
+  const [authkey, setAuthkey] = useState(props.authkey);
+  const [authiv, setAuthiv] = useState(props.authiv);
   const [payerName, setpayerName] = useState(props.payerName);
   const [payerEmail, setpayerEmail] = useState(props.payerEmail);
   const [payerMobile, setpayerMobile] = useState(props.payerMobile);
-  const [clientTxnId, setclientTxnId] = useState("38289722933377snjn");
-  const [payerAddress, setpayerAddress] = useState("");
-  const [amount, setamount] = useState(9999);
+  const [clientTxnId, setclientTxnId] = useState(props.clientTxnId);
+  const [amount, setamount] = useState(props.amount);
+  const [payerAddress, setpayerAddress] = useState(props.payerAddress);
+  const [callbackUrl, setCallbackUrl] = useState(props.callbackUrl);
   const [amountType, setamountType] = useState("");
   const [udf1, setudf1] = useState("");
   const [udf2, setudf2] = useState("");
@@ -51,7 +52,20 @@ function SabpaisaPaymentGateway(props) {
 
   }, [props])
 
- 
+  const history = useHistory();
+  const responseValues = history?.location?.search;
+
+  useEffect(() => {
+    if (responseValues) {
+      history.push({
+        pathname: "/result",
+        state: {
+          data: responseValues
+        }
+      })
+    }
+
+  }, [responseValues])
 
 
 
