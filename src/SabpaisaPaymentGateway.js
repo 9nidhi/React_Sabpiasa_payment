@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom'
 
 function SabpaisaPaymentGateway(props) {
 
+
   const [isOpen, setIsOpen] = useState(false);
   const [clientCode, setClientCode] = useState(props.clientCode);
   const [transUserName, setTransUserName] = useState(props.transUserName);
@@ -54,19 +55,8 @@ function SabpaisaPaymentGateway(props) {
 
   const history = useHistory();
   const responseValues = history?.location?.search;
-
-  useEffect(() => {
-    if (responseValues) {
-      history.push({
-        pathname: "/result",
-        state: {
-          data: responseValues
-        }
-      })
-    }
-
-  }, [responseValues])
-
+  console.log('responseValues =>',responseValues);
+  
 
 
   return (
@@ -98,8 +88,8 @@ function SabpaisaPaymentGateway(props) {
         channelId={channelId}
         programId={programId}
         mcc={mcc}
-        label={"Production"}
-        env={'stag'}
+        // label={"Production"}
+        env={'prod'}
       />
     }</div>
 
